@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 
 export default function App() {
+
+  const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
   // FIXED: Set the initial baseline state mapping to 'home' so your premium landing page renders at the beginning
   const [currentTab, setCurrentTab] = useState('home');
   const [isComplaintOpen, setIsComplaintOpen] = useState(false);
@@ -124,7 +127,7 @@ useEffect(() => {
       : { email: authEmail, password: authPassword };
 
     try {
-      const response = await fetch(`http://localhost:8080${endpoint}`, {
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -153,7 +156,7 @@ useEffect(() => {
   const fetchComplaintsFromDb = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/complaints/all');
+      const response = await fetch(`${BASE_URL}/api/complaints/all`);
       if (response.ok) {
         const data = await response.json();
         setDbComplaints(data);
@@ -180,7 +183,7 @@ useEffect(() => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/complaints/submit', {
+      const response = await fetch(`${BASE_URL}/api/complaints/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -203,7 +206,7 @@ useEffect(() => {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/emergency/trigger', {
+      const response = await fetch(`${BASE_URL}/api/emergency/trigger`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(telemetryData)
@@ -266,7 +269,7 @@ const handleSchemeMatch = (e) => {
 
     try {
       // Connect live via EventSource packet stream reader
-      const url = `http://localhost:8080/api/chat/stream?message=${encodeURIComponent(userText)}`;
+      const url = `${BASE_URL}/api/chat/stream?message=${encodeURIComponent(userText)}`;
       const eventSource = new EventSource(url);
 
       eventSource.onmessage = (event) => {

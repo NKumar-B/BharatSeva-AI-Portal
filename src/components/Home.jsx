@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 
 export default function Home({ onNavigate }) {
+
+   const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
   const [activeSlide, setActiveSlide] = useState(0);
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -144,7 +146,7 @@ export default function Home({ onNavigate }) {
     if (!userId) return;
     setSyncingQuestions(true);
     try {
-      const response = await fetch(`http://localhost:8080/api/questions/user/${userId}`);
+      const response = await fetch(`${BASE_URL}/api/questions/user/${userId}`);
       if (response.ok) {
         setUserQuestions(await response.json());
       }
@@ -225,7 +227,7 @@ export default function Home({ onNavigate }) {
       : { email: authEmail, password: authPassword };
 
     try {
-      const response = await fetch(`http://localhost:8080${endpoint}`, {
+      const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -267,7 +269,7 @@ export default function Home({ onNavigate }) {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/api/questions/submit', {
+      const response = await fetch(`${BASE_URL}/api/questions/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
