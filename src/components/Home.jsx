@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 //import Header from './Header'; // Adjust path if necessary
+import { Toaster, toast } from 'sonner';
 import { Menu } from 'lucide-react';
 import { 
   Building2, FileText, Bot, ShieldAlert, ArrowRight, 
