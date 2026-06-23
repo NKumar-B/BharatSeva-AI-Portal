@@ -730,13 +730,13 @@ const handleSchemeMatch = (e) => {
             <p className="text-slate-500 text-[10px] tracking-wide uppercase">Secured via Centralized Spring Boot and Distributed Core Frameworks.</p>
           </div>
           {/* Change the button to an anchor tag that links to the admin page */}
-<a 
-  href="/admin.html" 
-  className="bg-slate-800 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-xs border border-slate-700 transition-all flex items-center gap-2"
+<button 
+  onClick={() => handleTabSwitchGuard('admin')} 
+  className="bg-slate-800 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-xs border border-slate-700 transition-all flex items-center gap-2 cursor-pointer"
 >
   <Briefcase className="h-4 w-4 text-purple-400" />
   <span>Gov Console</span>
-</a>
+</button>
         </div>
       </footer>
 
