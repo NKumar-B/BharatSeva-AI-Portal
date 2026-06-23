@@ -354,9 +354,11 @@ const handleSchemeMatch = (e) => {
 
     
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col antialiased">
+       {currentTab === 'admin' && <Admin />}
       <Toaster position="top-center" richColors />
       
       
+
       {/* FIXED: HIDE IN-APP HEADER COMPLETELY ON HOME TO PREVENT NAVBAR REPLICATION DUPLICATION */}
       {currentTab !== 'home' && (
   <>
@@ -439,6 +441,8 @@ const handleSchemeMatch = (e) => {
       {/* VIEW A: RENDERS EXTRACTED PREMIUM SEPARATE HOME PAGE PAGE ROUTE */}
       {currentTab === 'home' && <Home onNavigate={handleTabSwitchGuard} />}
 
+      {/* ADD THIS LINE HERE */}
+    
       {/* VIEW B: CONTEXT ISOLATED IN-APP WORKSPACE MODULES */}
       {currentTab !== 'home' && (
         <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
@@ -727,17 +731,19 @@ const handleSchemeMatch = (e) => {
       <footer className="bg-[#0f172a] text-slate-400 text-xs py-6 border-t border-slate-800 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left space-y-1">
-            <p className="font-semibold text-slate-300">© 2026 BharatSeva AI Portal. Managed by Mother Theresa Institute of Engineering and Technology.</p>
-            <p className="text-slate-500 text-[10px] tracking-wide uppercase">Secured via Centralized Spring Boot and Distributed Core Frameworks.</p>
+            <p className="font-semibold text-slate-300">© 2026 BharatSeva AI Portal. Designed and Developed by Badduluri Nithin Kumar.</p>
+            <p className="text-slate-500 text-[10px] tracking-wide uppercase">Secured National Portal.</p>
           </div>
           {/* Change the button to an anchor tag that links to the admin page */}
-<button 
-  onClick={() => handleTabSwitchGuard('admin')} 
-  className="bg-slate-800 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-xs border border-slate-700 transition-all flex items-center gap-2 cursor-pointer"
+<a 
+  href="/admin.html" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="bg-slate-800 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-xs border border-slate-700 transition-all flex items-center gap-2"
 >
   <Briefcase className="h-4 w-4 text-purple-400" />
   <span>Gov Console</span>
-</button>
+</a>
         </div>
       </footer>
 

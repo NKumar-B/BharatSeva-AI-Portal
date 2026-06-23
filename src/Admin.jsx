@@ -5,6 +5,16 @@ import {
   Clock, CheckCircle2, Activity, Send, Building2, ShieldAlert
 } from 'lucide-react';
 
+const FlagIcon = () => (
+  <div className="w-7 h-7 rounded-lg overflow-hidden flex flex-col shadow-sm border border-slate-700">
+    <div className="flex-1 bg-[#FF9933]"></div>
+    <div className="flex-1 bg-white flex items-center justify-center">
+      <div className="w-1.5 h-1.5 rounded-full border border-[#000080]"></div>
+    </div>
+    <div className="flex-1 bg-[#138808]"></div>
+  </div>
+);
+
 export default function Admin() {
 
     const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
@@ -110,24 +120,32 @@ const [userQuestions, setUserQuestions] = useState([]);
       <div className="bg-gradient-to-r from-orange-600 via-white to-emerald-600 h-1.5 w-full" />
 
       {/* Official Gov Header */}
-      <header className="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="bg-slate-900 p-2.5 rounded-xl text-white shadow-xs">
-              <Briefcase className="h-7 w-7" />
-            </div>
-            <div>
-              <h1 className="text-xl font-extrabold text-[#0f172a] tracking-tight flex items-center gap-2">
-                BharatSeva AI <span className="text-[10px] bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">Internal Gov Portal</span>
-              </h1>
-              <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">One Nation, One Citizen Service Platform</p>
-            </div>
-          </div>
-          <div className="text-xs text-slate-400 font-mono font-bold uppercase">
-            {currentView === 'dashboard' ? '🔴 Secure Session Active' : '🔒 Secure Node'}
-          </div>
-        </div>
-      </header>
+<header className="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-40">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <div className="flex items-center space-x-4">
+      {/* UPDATED: Flag Icon replacing Briefcase */}
+      <div className="bg-slate-900 p-1.5 rounded-xl shadow-xs">
+        <FlagIcon />
+      </div>
+      
+      <div>
+        <h1 className="text-xl font-extrabold text-[#0f172a] tracking-tight flex items-center gap-2">
+          BharatSeva AI 
+          <span className="text-[10px] bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">
+            Internal Gov Portal
+          </span>
+        </h1>
+        <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">
+          One Nation, One Citizen Service Platform
+        </p>
+      </div>
+    </div>
+    
+    <div className="text-xs text-slate-400 font-mono font-bold uppercase">
+      {currentView === 'dashboard' ? '🔴 Secure Session Active' : '🔒 Secure Node'}
+    </div>
+  </div>
+</header>
 
       {/* Main Content Workspace View Switcher */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
