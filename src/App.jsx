@@ -5,6 +5,7 @@ import Chatbot from './components/Chatbot';
 import Telemedicine from './components/Telemedicine';
 import { HashLoader } from 'react-spinners'; // Add this
 import TricolorSpinner from './components/TricolorSpinner';
+import Admin from './Admin';
 import { Menu } from 'lucide-react';
 import { 
   Building2, FileText, Award, Stethoscope, 
