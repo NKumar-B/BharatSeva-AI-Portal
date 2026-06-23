@@ -3,6 +3,8 @@ import Home from './components/Home';
 import { Toaster, toast } from 'sonner'; // Add this import
 import Chatbot from './components/Chatbot';
 import Telemedicine from './components/Telemedicine';
+import { HashLoader } from 'react-spinners'; // Add this
+import TricolorSpinner from './components/TricolorSpinner';
 import { Menu } from 'lucide-react';
 import { 
   Building2, FileText, Award, Stethoscope, 
@@ -11,9 +13,29 @@ import {
   AlertTriangle, Bot, User, RefreshCw, Briefcase, Lock, ArrowRight, LogOut, ArrowLeft
 } from 'lucide-react';
 
+const LoadingScreen = () => <TricolorSpinner />;
+
 export default function App() {
 
   const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
+  // Add this state to track the global app initialization
+const [isAppLoading, setIsAppLoading] = useState(true);
+
+// Update your useEffect to trigger the app loading
+useEffect(() => {
+  // Example: Wait for backend wake-up + initial data fetch
+  const initApp = async () => {
+    try {
+      await fetchComplaintsFromDb();
+      // Add other essential fetch calls here if needed
+    } finally {
+      // Small timeout to ensure the UI feels smooth
+      setTimeout(() => setIsAppLoading(false), 1000); 
+    }
+  };
+  initApp();
+}, []);
 
   // FIXED: Set the initial baseline state mapping to 'home' so your premium landing page renders at the beginning
   const [currentTab, setCurrentTab] = useState('home');
@@ -321,6 +343,11 @@ const handleSchemeMatch = (e) => {
   setMatchedSchemes([]); // Reset the state to zero
   setCurrentTab('home');
 };
+
+// 1. ADD THIS AT THE VERY TOP OF YOUR RETURN
+  if (isAppLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
 
