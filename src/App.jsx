@@ -172,33 +172,44 @@ useEffect(() => {
     fetchComplaintsFromDb();
   }, []);
 
-  // Form submission directly wired to database entity persistence pipeline
   const handleGrievanceSubmit = async (e) => {
-    e.preventDefault();
-    const payload = {
-      title: e.target[0].value,
-      category: e.target[1].value,
-      description: e.target[2].value,
-      location: e.target[3].value
-    };
-
-    try {
-      const response = await fetch(`${BASE_URL}/api/complaints/submit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        alert("Grievance registered successfully into your Spring Boot MySQL instance!");
-        setIsComplaintOpen(false);
-        fetchComplaintsFromDb(); // Re-fetch list to dynamically update summary counters
-      }
-    } catch (err) {
-      alert("Could not communicate with the backend pipeline server container.");
-    }
+  e.preventDefault();
+  
+  const payload = {
+    title: e.target[0].value,
+    category: e.target[1].value,
+    description: e.target[2].value,
+    location: e.target[3].value
   };
 
+  try {
+    const response = await fetch(`${BASE_URL}/api/complaints/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      // Use Sonner success toast
+      toast.success("Grievance registered successfully!", {
+        description: "Your report has been saved to the database.",
+      });
+      
+      setIsComplaintOpen(false);
+      fetchComplaintsFromDb(); 
+    } else {
+      // Handle non-200 responses
+      toast.error("Submission failed", {
+        description: "The server returned an error. Please try again."
+      });
+    }
+  } catch (err) {
+    // Use Sonner error toast
+    toast.error("Connection Error", {
+      description: "Could not communicate with the backend server.",
+    });
+  }
+};
   const handleSOSTrigger = async () => {
     const telemetryData = {
       latitude: "13.2842° N",

@@ -252,37 +252,52 @@ export default function Home({ onNavigate }) {
   };
 
   const handleQuerySubmit = async (e) => {
-    e.preventDefault();
-    if (!customQuery.trim()) return;
+  e.preventDefault();
+  if (!customQuery.trim()) return;
 
-    if (!user) {
-      setShowAuthModal(true);
-      return;
-    }
+  if (!user) {
+    setShowAuthModal(true);
+    return;
+  }
 
-    const payload = {
-      userId: user.id,
-      userName: user.name,
-      queryText: customQuery,
-      status: "UNANSWERED",
-      answerText: "Awaiting review inside the internal Government Console..."
-    };
-
-    try {
-      const response = await fetch(`${BASE_URL}/api/questions/submit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        setCustomQuery('');
-        fetchPersonalQuestions(user.id);
-      }
-    } catch (err) {
-      alert("Failed transmission payload. Persistence runtime offline.");
-    }
+  const payload = {
+    userId: user.id,
+    userName: user.name,
+    queryText: customQuery,
+    status: "UNANSWERED",
+    answerText: "Awaiting review inside the internal Government Console..."
   };
+
+  // Show a loading toast while the request is in flight
+  const toastId = toast.loading("Transmitting query to Government Console...");
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/questions/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      setCustomQuery('');
+      fetchPersonalQuestions(user.id);
+      
+      // Dismiss the loading toast and show success
+      toast.success("Query transmitted successfully!", {
+        id: toastId,
+        description: "Your question is now awaiting review.",
+      });
+    } else {
+      throw new Error("Server rejected transmission");
+    }
+  } catch (err) {
+    // Dismiss the loading toast and show error
+    toast.error("Transmission failed", {
+      id: toastId,
+      description: "Persistence runtime could be offline. Please try again.",
+    });
+  }
+};
 
   const handleLogout = () => {
     localStorage.removeItem('citizen_user');
