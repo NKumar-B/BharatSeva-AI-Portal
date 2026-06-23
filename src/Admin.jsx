@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Toaster, toast } from 'sonner';
 import { 
   Briefcase, Key, Lock, MapPin, RefreshCw, 
-  Clock, CheckCircle2, Activity, Send, Building2, ShieldAlert
+  Clock, CheckCircle2, Activity, Send, Building2, ShieldAlert, ArrowLeft
 } from 'lucide-react';
 
 const FlagIcon = () => (
