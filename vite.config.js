@@ -40,13 +40,16 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        // Ensures offline.html is used when the app is offline
-        navigateFallback: 'offline.html',
-        // CRITICAL: Prevents your Spring Boot API calls from being 
-        // intercepted by the offline page
-        navigateFallbackDenylist: [/^\/api/], 
-      }
+  globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+  // Keeps the offline page
+  navigateFallback: 'offline.html',
+  
+  // CRITICAL FIX: Denylist both API calls AND your admin route
+  navigateFallbackDenylist: [
+    /^\/api/,      // Don't intercept API calls
+    /^\/admin/     // Don't intercept the admin route
+  ], 
+}
     })
   ]
 });
