@@ -15,7 +15,7 @@ const FlagIcon = () => (
   </div>
 );
 
-export default function Admin() {
+export default function Admin({ onBack }) {
 
     const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
@@ -119,33 +119,37 @@ const [userQuestions, setUserQuestions] = useState([]);
       {/* Top Sovereign Tri-Color Banner Accent */}
       <div className="bg-gradient-to-r from-orange-600 via-white to-emerald-600 h-1.5 w-full" />
 
-      {/* Official Gov Header */}
-<header className="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-40">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-    <div className="flex items-center space-x-4">
-      {/* UPDATED: Flag Icon replacing Briefcase */}
-      <div className="bg-slate-900 p-1.5 rounded-xl shadow-xs">
-        <FlagIcon />
-      </div>
-      
-      <div>
-        <h1 className="text-xl font-extrabold text-[#0f172a] tracking-tight flex items-center gap-2">
-          BharatSeva AI 
-          <span className="text-[10px] bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">
-            Internal Gov Portal
-          </span>
-        </h1>
-        <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">
-          One Nation, One Citizen Service Platform
-        </p>
-      </div>
-    </div>
-    
-    <div className="text-xs text-slate-400 font-mono font-bold uppercase">
-      {currentView === 'dashboard' ? '🔴 Secure Session Active' : '🔒 Secure Node'}
-    </div>
-  </div>
-</header>
+     {/* Official Gov Header */}
+      <header className="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            {/* The Back Button added here */}
+            <button onClick={onBack} className="p-2 hover:bg-slate-100 rounded-lg transition">
+              <ArrowLeft className="h-6 w-6 text-slate-600" />
+            </button>
+            
+            <div className="bg-slate-900 p-1.5 rounded-xl shadow-xs">
+              <FlagIcon />
+            </div>
+            
+            <div>
+              <h1 className="text-xl font-extrabold text-[#0f172a] tracking-tight flex items-center gap-2">
+                BharatSeva AI 
+                <span className="text-[10px] bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">
+                  Internal Gov Portal
+                </span>
+              </h1>
+              <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">
+                One Nation, One Citizen Service Platform
+              </p>
+            </div>
+          </div>
+          
+          <div className="text-xs text-slate-400 font-mono font-bold uppercase">
+            {currentView === 'dashboard' ? '🔴 Secure Session Active' : '🔒 Secure Node'}
+          </div>
+        </div>
+      </header>
 
       {/* Main Content Workspace View Switcher */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">

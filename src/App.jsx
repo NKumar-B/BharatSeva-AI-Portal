@@ -20,6 +20,28 @@ export default function App() {
 
   const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
+  useEffect(() => {
+  const initApp = async () => {
+    try {
+      // 1. Fetch necessary data
+      await fetchComplaintsFromDb();
+      
+      // 2. Direct Path Detection
+      // This ensures if someone visits /admin directly, 
+      // or opens it in a new tab, it goes straight to the console.
+      if (window.location.pathname.includes('/admin')) {
+        setCurrentTab('admin');
+      }
+    } finally {
+      // 3. Smooth loading transition
+      setTimeout(() => setIsAppLoading(false), 600); 
+    }
+  };
+  
+  initApp();
+}, []);
+
+
   // Add this state to track the global app initialization
 const [isAppLoading, setIsAppLoading] = useState(true);
 
@@ -354,87 +376,62 @@ const handleSchemeMatch = (e) => {
 
     
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col antialiased">
-       {currentTab === 'admin' && <Admin />}
+      
       <Toaster position="top-center" richColors />
       
       
 
-      {/* FIXED: HIDE IN-APP HEADER COMPLETELY ON HOME TO PREVENT NAVBAR REPLICATION DUPLICATION */}
-      {currentTab !== 'home' && (
-  <>
-    <div className="bg-gradient-to-r from-[#FF9933] via-white to-[#138808] h-1.5 w-full" />
-<header className="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-40">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-    
-    {/* REORDERED GROUP: Exit Button first, then Icon + Title */}
-    <div className="flex items-center space-x-2 sm:space-x-4">
-      
-      {/* 1. EXIT BUTTON MOVED TO START */}
- 
-<button
-  onClick={() => handleTabSwitchGuard('home')}
-  className="flex items-center justify-center p-2 mr-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-slate-600 hover:text-[#1e3a8a] transition-all duration-200 shadow-sm"
-  title="Exit to Home"
->
-  <ArrowLeft className="h-4 w-4 stroke-[3]" />
-</button>
-      {/* 2. LOGO + TITLE GROUP */}
-      <div className="flex items-center space-x-2 sm:space-x-4 cursor-pointer" onClick={() => handleTabSwitchGuard('home')}>
-        <div className="p-2 rounded-xl text-white shadow-sm bg-gradient-to-br from-[#FF9933] via-white to-[#138808] shrink-0">
-          <div className="bg-[#0f172a] rounded-lg p-1.5 w-[38px] h-[38px] flex items-center justify-center overflow-hidden relative">
-            <div className="w-full h-full flex flex-col">
-              <div className="flex-1 bg-[#FF9933]"></div>
-              <div className="flex-1 bg-white flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full border border-[#000080]"></div>
+      {/* ADMIN OVERLAY: Renders exclusively when tab is admin, hiding site header/footer */}
+    {currentTab === 'admin' ? (
+      <Admin onBack={() => setCurrentTab('home')} />
+    ) : (
+      <>
+        {/* HEADER: Shows only if NOT home and NOT admin */}
+        {currentTab !== 'home' && (
+          <>
+            <div className="bg-gradient-to-r from-[#FF9933] via-white to-[#138808] h-1.5 w-full" />
+            <header className="bg-white border-b border-slate-200 shadow-xs sticky top-0 z-40">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <div className="flex items-center space-x-2 sm:space-x-4">
+                  <button
+                    onClick={() => handleTabSwitchGuard('home')}
+                    className="flex items-center justify-center p-2 mr-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-slate-600 hover:text-[#1e3a8a] transition-all shadow-sm"
+                    title="Exit to Home"
+                  >
+                    <ArrowLeft className="h-4 w-4 stroke-[3]" />
+                  </button>
+                  <div className="flex items-center space-x-2 sm:space-x-4 cursor-pointer" onClick={() => handleTabSwitchGuard('home')}>
+                    <div className="p-2 rounded-xl text-white shadow-sm bg-gradient-to-br from-[#FF9933] via-white to-[#138808] shrink-0">
+                      <div className="bg-[#0f172a] rounded-lg p-1.5 w-[38px] h-[38px] flex items-center justify-center overflow-hidden relative">
+                        <div className="w-full h-full flex flex-col">
+                          <div className="flex-1 bg-[#FF9933]"></div>
+                          <div className="flex-1 bg-white flex items-center justify-center"><div className="w-2 h-2 rounded-full border border-[#000080]"></div></div>
+                          <div className="flex-1 bg-[#138808]"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <h1 className="text-sm sm:text-xl font-extrabold text-[#0f172a] tracking-tight">BharatSeva AI</h1>
+                  </div>
+                </div>
+
+                <button className="lg:hidden p-2 text-slate-700" onClick={() => setMenuOpen(!menuOpen)}><Menu className="h-6 w-6" /></button>
+
+                <nav className={`${menuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row absolute lg:static top-20 left-0 w-full lg:w-auto bg-white p-6 lg:p-0 border-b lg:border-none shadow-xl lg:shadow-none space-y-4 lg:space-y-0 lg:space-x-1`}>
+                  {['dashboard', 'schemes', 'telemedicine', 'emergency'].map((tab) => (
+                    <button key={tab} onClick={() => { handleTabSwitchGuard(tab); setMenuOpen(false); }} className={`px-4 py-2 text-xs font-bold uppercase rounded-lg transition-all ${currentTab === tab ? 'bg-[#1e3a8a] text-white' : 'text-slate-600 hover:bg-slate-100'}`}>
+                      {tab}
+                    </button>
+                  ))}
+                </nav>
+
+                <div className="hidden lg:flex items-center space-x-4">
+                  <button onClick={fetchComplaintsFromDb} className="p-2 text-slate-400 hover:text-[#1e3a8a] rounded-lg"><RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} /></button>
+                  <div className="h-9 w-9 bg-blue-100 rounded-full flex items-center justify-center text-[#1e3a8a] font-bold text-sm uppercase">{sessionUser ? sessionUser.name.substring(0, 2) : 'BN'}</div>
+                </div>
               </div>
-              <div className="flex-1 bg-[#138808]"></div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="block">
-          <h1 className="text-sm sm:text-xl font-extrabold text-[#0f172a] tracking-tight">
-            BharatSeva AI 
-          </h1>
-        </div>
-      </div>
-    </div>
-
-    {/* MOBILE TOGGLE BUTTON */}
-    <button className="lg:hidden p-2 text-slate-700" onClick={() => setMenuOpen(!menuOpen)}>
-      <Menu className="h-6 w-6" />
-    </button>
-
-    {/* RESPONSIVE NAVIGATION */}
-    <nav className={`${menuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row absolute lg:static top-20 left-0 w-full lg:w-auto bg-white p-6 lg:p-0 border-b lg:border-none shadow-xl lg:shadow-none space-y-4 lg:space-y-0 lg:space-x-1`}>
-      {['dashboard', 'schemes', 'telemedicine', 'emergency'].map((tab) => (
-        <button
-          key={tab}
-          onClick={() => { handleTabSwitchGuard(tab); setMenuOpen(false); }}
-          className={`px-4 py-2 text-xs font-bold tracking-wide uppercase rounded-lg transition-all ${
-            currentTab === tab 
-              ? 'bg-[#1e3a8a] text-white shadow-xs' 
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          {tab}
-        </button>
-      ))}
-    </nav>
-
-    {/* RIGHT SIDE ACTIONS */}
-    <div className="hidden lg:flex items-center space-x-4">
-      <button onClick={fetchComplaintsFromDb} className="p-2 text-slate-400 hover:text-[#1e3a8a] rounded-lg transition">
-        <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
-      </button>
-      <div className="h-9 w-9 bg-blue-100 rounded-full flex items-center justify-center text-[#1e3a8a] font-bold text-sm uppercase">
-        {sessionUser ? sessionUser.name.substring(0, 2) : 'BN'}
-      </div>
-    </div>
-  </div>
-</header>
-  </>
-)}
+            </header>
+          </>
+        )}
 
       {/* ==================== SCREEN ELEMENT SWITCH MATRIX ==================== */}
       
@@ -737,11 +734,12 @@ const handleSchemeMatch = (e) => {
           {/* Change the button to an anchor tag that links to the admin page */}
 <button 
   onClick={() => window.open(window.location.origin + '/admin', '_blank')}
+
   className="bg-slate-800 hover:bg-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-xs border border-slate-700 transition-all flex items-center gap-2 cursor-pointer"
 >
   <Briefcase className="h-4 w-4 text-purple-400" />
   <span>Gov Console</span>
-</button>
+</button> 
         </div>
       </footer>
 
@@ -784,6 +782,9 @@ const handleSchemeMatch = (e) => {
 
 {isChatOpen && <Chatbot onClose={() => setIsChatOpen(false)} />}
 
+</>
+    )}
     </div>
+    
   );
 }
