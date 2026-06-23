@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from 'sonner';
 import { 
   Briefcase, Key, Lock, MapPin, RefreshCw, 
   Clock, CheckCircle2, Activity, Send, Building2, ShieldAlert, ArrowLeft
@@ -115,7 +115,7 @@ const [userQuestions, setUserQuestions] = useState([]);
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col antialiased">
-      {/* <Toaster position="top-right" richColors /> */}
+      <Toaster position="top-right" richColors />
       {/* Top Sovereign Tri-Color Banner Accent */}
       <div className="bg-gradient-to-r from-orange-600 via-white to-emerald-600 h-1.5 w-full" />
 
