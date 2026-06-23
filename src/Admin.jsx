@@ -6,6 +6,9 @@ import {
 } from 'lucide-react';
 
 export default function Admin() {
+
+    const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
   const [currentView, setCurrentView] = useState('auth'); // 'auth' or 'dashboard'
   const [secretInput, setSecretInput] = useState('');
   const [authError, setAuthError] = useState('');
@@ -21,21 +24,21 @@ const [userQuestions, setUserQuestions] = useState([]);
     setLoading(true);
     try {
       // 1. Fetch complaints
-      const response = await fetch('http://localhost:8080/api/complaints/all');
+      const response = await fetch(`${BASE_URL}/api/complaints/all`);
       if (response.ok) {
         const data = await response.json();
         setDbComplaints(data);
       }
 
       // 2. Fetch live SOS alerts
-      const alertResponse = await fetch('http://localhost:8080/api/emergency/all');
+      const alertResponse = await fetch(`${BASE_URL}/api/emergency/all`);
       if (alertResponse.ok) {
         const alertData = await alertResponse.json();
         setDbAlerts(alertData);
       }
 
       // 3. Fetch user-submitted questions for the dashboard Q&A section
-      const questionResponse = await fetch('http://localhost:8080/api/questions/all');
+      const questionResponse = await fetch(`${BASE_URL}/api/questions/all`);
     if (questionResponse.ok) {
       setUserQuestions(await questionResponse.json());
     }
@@ -55,7 +58,7 @@ const [userQuestions, setUserQuestions] = useState([]);
 
   const handleAnswerQuestion = async (id, answerText) => {
   try {
-    const response = await fetch(`http://localhost:8080/api/questions/${id}/answer`, {
+    const response = await fetch(`${BASE_URL}/api/questions/${id}/answer`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ answer: answerText })
@@ -84,7 +87,7 @@ const [userQuestions, setUserQuestions] = useState([]);
   // Government Employee Status Modifier Action
   const handleUpdateStatus = async (id, status) => {
   try {
-    const response = await fetch(`http://localhost:8080/api/complaints/${id}/status?newStatus=${status}`, {
+    const response = await fetch(`${BASE_URL}/api/complaints/${id}/status?newStatus=${status}`, {
       method: 'PUT'
     });
     if (response.ok) {
