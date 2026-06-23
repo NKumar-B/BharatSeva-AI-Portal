@@ -124,9 +124,9 @@ const [userQuestions, setUserQuestions] = useState([]);
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             {/* The Back Button added here */}
-            <button onClick={onBack} className="p-2 hover:bg-slate-100 rounded-lg transition">
+            {/* <button onClick={onBack} className="p-2 hover:bg-slate-100 rounded-lg transition">
               <ArrowLeft className="h-6 w-6 text-slate-600" />
-            </button>
+            </button> */}
             
             <div className="bg-slate-900 p-1.5 rounded-xl shadow-xs">
               <FlagIcon />
