@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 export default function Telemedicine() {
+
+   const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
   const [symptoms, setSymptoms] = useState([]);
   const [result, setResult] = useState(null);
 
@@ -8,10 +11,10 @@ export default function Telemedicine() {
 
   const handleDiagnose = async () => {
   const query = symptoms.join(',').toLowerCase();
-  console.log("Sending request to:", `/api/telemedicine/diagnose?symptoms=${query}`);
+  console.log("Sending request to:", `${BASE_URL}/api/telemedicine/diagnose?symptoms=${query}`);
   
   try {
-    const response = await fetch(`/api/telemedicine/diagnose?symptoms=${query}`);
+    const response = await fetch(`${BASE_URL}/api/telemedicine/diagnose?symptoms=${query}`);
     if (!response.ok) throw new Error('Network response was not ok');
     
     const data = await response.text();
