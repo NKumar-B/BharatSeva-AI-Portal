@@ -7,7 +7,7 @@ BharatSeva AI Portal is a full-stack web application designed to simplify citize
 The platform combines **AI-powered assistance, grievance management, emergency SOS functionality, government service discovery, and real-time ticket tracking** into a single responsive application.
 
 ---
-
+ 
 ## ✨ Key Features
 
 ###  Automated Grievance Management
