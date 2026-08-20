@@ -8,7 +8,7 @@ The platform combines **AI-powered assistance, grievance management, emergency S
 
 ---
  
-## ✨ Key Features
+## ✨ Key Features 
 
 ###  Automated Grievance Management
 
