@@ -7,8 +7,14 @@ BharatSeva AI Portal is a full-stack web application designed to simplify citize
 The platform combines **AI-powered assistance, grievance management, emergency SOS functionality, government service discovery, and real-time ticket tracking** into a single responsive application.
 
 ---
+
+## Live Demo
+
+ **[Visit BharatSeva AI Portal](https://bharatseva-ai-portal.onrender.com/)**
+
+ ---
  
-## ✨ Key Features 
+## Key Features 
 
 ###  Automated Grievance Management
 
@@ -62,7 +68,7 @@ Authenticated users can:
 
 ---
 
-# 🛠️ Technology Stack
+# Technology Stack
 
 ## Frontend
 
@@ -102,7 +108,7 @@ Authenticated users can:
 
 ---
 
-# 📂 Project Structure
+# Project Structure
 
 ```text
 BharatSeva-AI-Portal/
@@ -136,7 +142,7 @@ BharatSeva-AI-Portal/
 
 ---
 
-# 🚀 Getting Started
+# Getting Started
 
 Follow these steps to run BharatSeva AI Portal locally.
 
@@ -183,7 +189,7 @@ http://localhost:5173
 
 ---
 
-# ☕ Backend Setup
+# Backend Setup
 
 BharatSeva AI Portal uses **Spring Boot** for backend services, authentication, database operations, and ticket management.
 
@@ -210,7 +216,7 @@ The backend provides services for:
 
 ---
 
-# 🗄️ Database Configuration
+# Database Configuration
 
 Make sure MySQL is running locally on:
 
@@ -234,7 +240,7 @@ For local development, consider using environment variables or an ignored `.env`
 
 ---
 
-# 🔄 Application Architecture
+# Application Architecture
 
 ```text
                     🇮🇳 BharatSeva AI Portal
@@ -271,7 +277,7 @@ For local development, consider using environment variables or an ignored `.env`
 
 ---
 
-# 🌐 Local Development
+# Local Development
 
 | Service     | Address                 |
 | ----------- | ----------------------- |
@@ -281,7 +287,7 @@ For local development, consider using environment variables or an ignored `.env`
 
 ---
 
-# 📡 Real-Time Communication
+# Real-Time Communication
 
 The application uses **Server-Sent Events (SSE)** to support real-time streaming between the backend and frontend.
 
@@ -308,7 +314,7 @@ This allows chatbot responses and other supported events to be delivered progres
 
 ---
 
-# 🔐 Security & Data Handling
+# Security & Data Handling
 
 The application incorporates security-oriented practices including:
 
@@ -323,7 +329,7 @@ The application incorporates security-oriented practices including:
 
 ---
 
-# 📜 Policies & Compliance
+# Policies & Compliance
 
 The portal provides dedicated sections for common administrative and informational policies:
 
@@ -335,7 +341,7 @@ The portal provides dedicated sections for common administrative and information
 
 ---
 
-# 📊 Future Improvements
+# Future Improvements
 
 Potential future enhancements include:
 
@@ -350,7 +356,7 @@ Potential future enhancements include:
 
 ---
 
-# 🤝 Contributing
+# Contributing
 
 Contributions and suggestions are welcome.
 
@@ -370,7 +376,7 @@ Then open a Pull Request describing your changes.
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 ### Badduluri Nithin Kumar
 
@@ -380,14 +386,9 @@ Full-Stack Developer | AI/ML Enthusiast
 
 ---
 
-# ⭐ Support
+# Support
 
 If you find this project useful, consider giving the repository a ⭐ on GitHub.
 
  **BharatSeva AI Portal — Simplifying access to citizen services through technology.**
-
-
-## 🌐 Live Demo
-
-🚀 **[Visit BharatSeva AI Portal](YOUR_DEPLOYED_URL)**
 
